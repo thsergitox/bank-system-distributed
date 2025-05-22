@@ -23,8 +23,6 @@ import commons.Cliente;
 import commons.Cuenta;
 import commons.EstadoOperacion;
 
-//package centralserver; // Eliminado para simplificar estructura por ahora
-
 public class ServidorCentral {
 
     private static final int PUERTO_CLIENTES = 12345;
@@ -45,10 +43,6 @@ public class ServidorCentral {
     // Mapea: ID_Cuenta -> ID_Particion (Ej: 101 -> "CUENTA_P1")
     public static final ConcurrentHashMap<Integer, String> cuentaAParticion = new ConcurrentHashMap<>();
     public static final ConcurrentHashMap<Integer, String> clienteAParticion = new ConcurrentHashMap<>();
-    // Podríamos necesitar una estructura similar para Cliente si también se
-    // particiona así
-    // private static ConcurrentHashMap<Integer, String> clienteAParticion = new
-    // ConcurrentHashMap<>();
 
     // Almacenará los objetos de cada partición para enviarlos a los workers cuando
     // se registren.
@@ -68,12 +62,12 @@ public class ServidorCentral {
                 + particionesAsignadas);
 
         for (String particionId : particionesAsignadas) {
-            particionANodos.computeIfAbsent(particionId, k -> new ArrayList<>()).remove(infoWorker.getWorkerId()); // Evitar
+            particionANodos.computeIfAbsent(particionId, _ -> new ArrayList<>()).remove(infoWorker.getWorkerId()); // Evitar
                                                                                                                    // duplicados
                                                                                                                    // si
                                                                                                                    // se
                                                                                                                    // re-registra
-            particionANodos.computeIfAbsent(particionId, k -> new ArrayList<>()).add(infoWorker.getWorkerId());
+            particionANodos.computeIfAbsent(particionId, _ -> new ArrayList<>()).add(infoWorker.getWorkerId());
             System.out.println("ServidorCentral: Worker " + infoWorker.getWorkerId() + " ahora maneja partición "
                     + particionId);
         }
@@ -118,9 +112,6 @@ public class ServidorCentral {
             Map<String, List<? extends Serializable>> datosParaWorkerParam) {
         System.out.println("ServidorCentral: Iniciando asignación de particiones para worker " + workerId);
         int particionesAsignadasEnEstaRonda = 0;
-        // Podríamos querer limitar cuántas particiones nuevas asignamos por ronda a un
-        // worker
-        // int maxParticionesPorWorker = 2; // Ejemplo
 
         List<String> todasLasIdsParticiones = new ArrayList<>(datosParticionesGlobales.keySet());
         Collections.shuffle(todasLasIdsParticiones); // Para distribuir un poco al azar si varios workers se registran

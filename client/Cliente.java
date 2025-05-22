@@ -1,14 +1,11 @@
 package client;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
@@ -19,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 import commons.Solicitud;
 import commons.Respuesta;
 import commons.TipoOperacion;
-import commons.EstadoOperacion;
 
 public class Cliente {
     private static String HOST_SERVIDOR = "localhost";
