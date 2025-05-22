@@ -4567,3 +4567,5 @@ ID_TRANSACC|ID_ORIG|ID_DEST|MONTO|FECHA_HORA|ESTADO|DETALLE
 4566|102273|105649|44.73|Thu May 22 03:14:06 GMT-05:00 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
 4567|100093|100094|8000.00|Thu May 22 03:18:08 GMT-05:00 2025|ERROR_SALDO_INSUFICIENTE|Worker: worker0. Particion: CUENTA_P1. Saldo insuficiente CtaOrigen 100093
 4568|100093|100094|100.00|Thu May 22 03:18:29 GMT-05:00 2025|EXITO|Worker: worker0. Particion: CUENTA_P1. Transferencia intra-partición OK por worker0 Datos: {nuevoSaldoOrigen=7526.77. nuevoSaldoDestino=6675.56. workerIdProcesador=worker0}
+1|100639|104645|66.25|Thu May 22 08:55:11 GMT-05:00 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+2|102302|101039|97.23|Thu May 22 08:55:11 GMT-05:00 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.

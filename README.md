@@ -89,54 +89,92 @@
 
 Para ejecutar el sistema distribuido de banca, siga estos pasos:
 
-1. Ejecución del Servidor Central:
-   - Abra una terminal y diríjase al directorio `centralserver`:
-     ```bash
-     cd centralserver
-     ```
-   - Compile el código (si aún no lo ha compilado):
-     ```bash
-     javac ServidorCentral.java
-     ```
-   - Ejecute el servidor:
-     ```bash
-     java ServidorCentral
-     ```
+1. Compilamos desde raiz
 
-2. Ejecución del Nodo Trabajador:
-   - Abra otra terminal y diríjase al directorio `workernode`:
-     ```bash
-     cd workernode
-     ```
-   - Compile el código:
-     ```bash
-     javac NodoTrabajador.java
-     ```
+``` bash
+javac -d bin centralserver/ServidorCentral.java workernode/NodoTrabajador.java client/Cliente.java
+```
+
+Luego entraremos a la carpeta con nuestro codigo compilado
+
+``` sh
+cd bin
+```
+
+2. Ejecución del Servidor Central:
+   - Abra una terminal y diríjase al directorio `centralserver`:
+``` bash
+  java centralserver.ServidorCentral
+```
+
+
+3. Ejecución del Nodo Trabajador:
+
    - Ejecute un nodo trabajador especificando sus parámetros:
      ```bash
-     java NodoTrabajador <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
+     java workernode.NodoTrabajador <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
      ```
      Ejemplo:
      ```bash
-     java NodoTrabajador worker1 localhost 12346 12350
+     java workernode.NodoTrabajador worker1 localhost 12346 12350
      ```
+
+4. Ejecución del Cliente:
+
+   - Ejecute el cliente con las siguientes opciones:
+     - Para modo simulación (por defecto):
+       ```bash
+       java client.Cliente -h localhost -p 12345 -c 5 -o 10
+       ```
+       (donde `-c` indica el número de clientes simulados y `-o` el número de operaciones por cliente).
+     - Para modo interactivo:
+       ```bash
+       java client.Cliente -i
+       ```
+
+
+Y si tienes la versión 21 o más de Java puede hacer esto:
+
+1. Ejecución del Servidor central:
+   - Abra otra terminal y diríjase al directorio `centralserver`:
+     ```bash
+     cd centralserver
+     ```
+   - Ejecutamos directamente el código:
+     ```bash
+     javac ServidorCentral.java
+     ```
+
+2. Ejecute un nodo trabajador:
+   - Abra otra terminal y diríjase al directorio `workernode` desde raiz, claro:
+     ```bash
+     cd workernode
+     ```
+   - Ejecutamos directamente el código:
+     ```bash
+     java NodoTrabajador.java <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
+     ```
+
+     Ejemplo:
+     ```bash
+     java NodoTrabajador.java worker1 localhost 12346 12350
+     ```
+
+
 
 3. Ejecución del Cliente:
    - Abra otra terminal y diríjase al directorio `client`:
      ```bash
      cd client
      ```
-   - Compile el código:
-     ```bash
-     javac Cliente.java
-     ```
+
    - Ejecute el cliente con las siguientes opciones:
      - Para modo simulación (por defecto):
        ```bash
-       java Cliente -h localhost -p 12345 -c 5 -o 10
+       java Cliente.java -h localhost -p 12345 -c 5 -o 10
        ```
        (donde `-c` indica el número de clientes simulados y `-o` el número de operaciones por cliente).
      - Para modo interactivo:
        ```bash
-       java Cliente -i
+       java Cliente.java -i
        ```
