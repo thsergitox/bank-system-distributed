@@ -1,0 +1,16 @@
+// filepath: workernode-ts/tsconfig.json
+{
+  "compilerOptions": {
+    // ...existing options...
+    "target": "es2020", // O una versión más reciente
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+    // ...existing options...
+  },
+  "include": ["src/**/*"]
+}
