@@ -257,6 +257,50 @@ Un protocolo de Two-Phase Commit (2PC) formal es un protocolo de consenso distri
 
 El enfoque adoptado (preparar débito, aplicar crédito, confirmar/revertir débito) es una forma simplificada de transacción distribuida que se asemeja a una saga o un protocolo de compensación. Es más ligero pero no ofrece las mismas garantías de atomicidad estricta que 2PC, especialmente frente a fallos del coordinador en momentos críticos. Sin embargo, para el alcance de este proyecto, se consideró un compromiso adecuado entre simplicidad y funcionalidad.
 
+### 7.5. Control de Concurrencia y Protocolo de Commit Específico del Sistema
+
+Analizando el diseño y la implementación actual, el sistema maneja la concurrencia y las "transacciones" distribuidas de la siguiente manera:
+
+**Control de Concurrencia:**
+
+El sistema utiliza una combinación de mecanismos:
+
+1.  **Manejo Concurrente de Solicitudes a Nivel de Servidor/Worker:**
+    *   Tanto el `ServidorCentral` como cada `NodoTrabajador` utilizan `ExecutorService` para gestionar múltiples conexiones entrantes (de clientes o del servidor central, respectivamente) y procesar tareas de forma concurrente. Esto permite que varias solicitudes/operaciones se atiendan en paralelo sin bloquear el hilo principal de aceptación de conexiones.
+
+2.  **Protección de Estructuras de Datos Compartidas Centralizadas (Servidor Central):**
+    *   Las estructuras de datos críticas que residen en el `ServidorCentral` y que son accedidas por múltiples hilos (manejadores de clientes, manejadores de workers), tales como `workersActivos`, `particionANodos`, `cuentaAParticion`, y `clienteAParticion`, se implementan utilizando `java.util.concurrent.ConcurrentHashMap`. Esta estructura de datos está diseñada para permitir accesos y modificaciones concurrentes de manera segura a nivel de _thread_ sin necesidad de bloqueos explícitos para la mayoría de las operaciones comunes.
+    *   Adicionalmente, los métodos estáticos en `ServidorCentral` que realizan operaciones complejas o compuestas sobre estos metadatos (por ejemplo, `registrarActualizarWorker` y `desregistrarWorker`) están declarados como `synchronized`. Esto asegura que solo un hilo pueda ejecutar estos bloques de código a la vez, previniendo inconsistencias durante la modificación de múltiples estructuras de metadatos relacionadas.
+
+3.  **Sincronización a Nivel de Archivo/Partición (Nodo Trabajador):**
+    *   Dentro de `NodoTrabajador`, los métodos que realizan operaciones de lectura/escritura en los archivos `.txt` de datos (ej., `leerSaldoDeArchivo`, `actualizarSaldosEnArchivo`, `actualizarSaldoUnicaCuentaEnArchivo`) están declarados como `synchronized`. Esto asegura que solo un hilo `ManejadorTareaWorker` a la vez pueda modificar o leer un archivo de datos específico (que representa una partición) dentro de una instancia de `NodoTrabajador`. Esto previene la corrupción de datos en los archivos debido a escrituras concurrentes.
+
+4.  **Control Optimista para Operaciones de Datos Distribuidas:**
+    *   Para las operaciones que modifican datos a través de múltiples `NodoTrabajador` (específicamente `TRANSFERIR_FONDOS` entre diferentes particiones), el enfoque se asemeja a un **control de concurrencia optimista**.
+        *   **Validación Local:** Cada `NodoTrabajador` involucrado realiza validaciones locales (ej., verificar saldo antes de un débito en `PREPARAR_DEBITO`).
+        *   **Posible Conflicto y Compensación:** El sistema no implementa un _locking_ distribuido global para bloquear las cuentas involucradas antes de intentar la transacción. Se procede con las operaciones secuencialmente (preparar débito, luego aplicar crédito). Si una fase posterior de la transacción falla después de que una fase anterior se haya completado (ej., el crédito falla después de que el débito fue preparado/confirmado), el sistema se basa en **acciones de compensación** (como `REVERTIR_DEBITO`) coordinadas por el `ServidorCentral` para intentar devolver el sistema a un estado consistente. Se asume que los conflictos directos (dos transacciones intentando modificar la misma cuenta exactamente al mismo tiempo de forma conflictiva) son manejados por la sincronización a nivel de archivo en el worker, y los fallos de coordinación se manejan por compensación.
+
+**Protocolo de Commit:**
+
+El sistema **no utiliza un protocolo de commit distribuido formal y completo como Two-Phase Commit (2PC)**.
+
+En su lugar, se emplea un **protocolo de commit coordinado por el Servidor Central con lógica de compensación**:
+
+1.  **Commits Locales Implícitos:** Cada operación de escritura individual en un archivo `.txt` por parte de un `NodoTrabajador` (ej., actualizar un saldo en `actualizarSaldosEnArchivo` o `actualizarSaldoUnicaCuentaEnArchivo`) puede considerarse un "commit" local para esa pieza de datos en esa réplica particular. La sincronización a nivel de método asegura que esta escritura sea atómica respecto a otras operaciones en el mismo worker.
+
+2.  **Coordinación Centralizada para Transacciones Multi-Paso:** Para transacciones que involucran múltiples pasos o múltiples nodos (como `TRANSFERIR_FONDOS` entre diferentes particiones), el `ServidorCentral` actúa como coordinador:
+    *   Orquesta la secuencia de operaciones: `PREPARAR_DEBITO` en el worker origen, `APLICAR_CREDITO` en el worker destino, `CONFIRMAR_DEBITO` en el worker origen.
+    *   Espera la respuesta de cada paso antes de proceder al siguiente.
+
+3.  **Acción de Compensación en Caso de Fallo:** Si alguna de las operaciones críticas falla (ej., `APLICAR_CREDITO` falla después de un `PREPARAR_DEBITO` exitoso), el `ServidorCentral` inicia una acción de compensación (ej., enviando `REVERTIR_DEBITO` al worker origen). Esta es una alternativa más simple que 2PC, que evita la complejidad y el overhead de las fases de preparación y votación de 2PC, pero depende de la correcta implementación de las operaciones de compensación para manejar fallos.
+
+**Comparación con Alternativas no Utilizadas:**
+
+*   **Locking Distribuido (Interbloqueo Global):** No se implementa. El sistema no adquiere bloqueos globales sobre los datos (cuentas) antes de una transacción distribuida. Los bloqueos (`synchronized`) son locales (a nivel de método en `ServidorCentral` para metadatos, o a nivel de método/archivo en `NodoTrabajador` para datos de partición).
+*   **Time-stamp Ordering (Relojes Sincronizados):** No se utiliza. El sistema no se basa en timestamps para ordenar transacciones globalmente ni requiere relojes sincronizados entre los nodos. El ordenamiento de las operaciones es determinado por el flujo de control del `ServidorCentral`.
+
+En resumen, el sistema aborda la concurrencia mediante una combinación de pools de hilos, estructuras de datos concurrentes, bloques sincronizados para secciones críticas y un enfoque optimista con compensación para las transacciones distribuidas. Este enfoque prioriza la simplicidad y el rendimiento para el caso común sobre las garantías de atomicidad estricta de protocolos más complejos como 2PC.
+
 ## 8. Manejo de Fallos
 
 *   **Fallo de Nodo Trabajador:**
