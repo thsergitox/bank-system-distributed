@@ -10,7 +10,7 @@
    - [x] Configurar archivos de build (Postergado, se usará compilación directa por ahora).
 
 ## 2. Módulo `commons`
-   - [x] Definir clases de modelo: `Cliente.java`, `Cuenta.java`, `Transaccion.java`.
+   - [x] Definir clases de modelo: `Cliente.java`, `Cuenta.java`.
    - [x] Definir clases para mensajes: `Solicitud.java`, `Respuesta.java`, `MensajeWorker.java`, `InfoWorker.java`.
    - [x] Definir enumeraciones: `TipoOperacion.java`, `EstadoOperacion.java`.
 

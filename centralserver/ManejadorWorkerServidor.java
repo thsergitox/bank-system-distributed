@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import commons.MensajeWorker;
 import commons.InfoWorker;
-import commons.EstadoOperacion; // No se usa directamente aquí, pero podría ser para errores
-import commons.Respuesta; // Para enviar errores genéricos si es necesario
 import java.io.Serializable;
 
 // Asumiendo que esta clase está en el mismo 'paquete por defecto' que ServidorCentral
