@@ -6049,3 +6049,26 @@ ID_TRANSACC|ID_ORIG|ID_DEST|MONTO|FECHA_HORA|ESTADO|DETALLE
 1478|104623|102710|24.91|Thu May 22 13:13:04 GMT-05:00 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
 1479|103355|100869|202.06|Thu May 22 13:13:04 GMT-05:00 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
 1480|104297|105056|131.42|Thu May 22 13:13:04 GMT-05:00 2025|EXITO|Worker: worker2. Particion: CUENTA_P3. Transferencia intra-partición OK por worker2 Datos: {nuevoSaldoOrigen=125.84. nuevoSaldoDestino=9247.39. workerIdProcesador=worker2}
+2|103805|102784|124.82|Thu May 22 13:42:05 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P2. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=3992.3900000000003. nuevoSaldoOrigen=5781.04}
+3|103357|101945|108.41|Thu May 22 13:42:05 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+1|102811|104218|74.84|Thu May 22 13:42:05 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+4|103755|105244|84.02|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+5|105801|100390|37.36|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+7|101807|101025|140.52|Thu May 22 13:42:06 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P1. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=5761.570000000001. nuevoSaldoOrigen=2405.03}
+6|103919|104514|177.05|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+8|100037|103643|82.49|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+9|104918|100345|78.73|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+10|104269|100704|160.64|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+11|104309|103162|103.53|Thu May 22 13:42:06 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+12|103622|103575|48.83|Thu May 22 13:42:06 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P2. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=3217.69. nuevoSaldoOrigen=587.61}
+13|102609|100657|166.92|Thu May 22 13:42:07 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+15|103742|102553|171.62|Thu May 22 13:42:07 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P2. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=9784.18. nuevoSaldoOrigen=8377.39}
+14|105866|101278|163.15|Thu May 22 13:42:07 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+16|104626|104072|37.45|Thu May 22 13:42:07 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P3. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=10008.140000000001. nuevoSaldoOrigen=1972.3899999999999}
+17|100260|100994|115.44|Thu May 22 13:42:07 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P1. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=9614.79. nuevoSaldoOrigen=1182.5}
+18|102688|106031|93.95|Thu May 22 13:42:07 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+19|104222|102243|187.17|Thu May 22 13:42:07 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+20|103128|103474|112.11|Thu May 22 13:42:07 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P2. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=7252.71. nuevoSaldoOrigen=2913.2999999999997}
+21|102293|105976|101.93|Thu May 22 13:42:07 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.
+22|104711|105173|58.02|Thu May 22 13:42:08 COT 2025|EXITO|Worker: worker1. Particion: CUENTA_P3. Transferencia intra-partición OK por worker1 Datos: {workerIdProcesador=worker1. nuevoSaldoDestino=324.33. nuevoSaldoOrigen=1940.93}
+23|105326|103046|188.85|Thu May 22 13:42:08 COT 2025|TRANSACCION_CONFIRMADA|Transferencia inter-partición completada.

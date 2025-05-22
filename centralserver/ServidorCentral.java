@@ -62,12 +62,12 @@ public class ServidorCentral {
                 + particionesAsignadas);
 
         for (String particionId : particionesAsignadas) {
-            particionANodos.computeIfAbsent(particionId, _ -> new ArrayList<>()).remove(infoWorker.getWorkerId()); // Evitar
+            particionANodos.computeIfAbsent(particionId, a -> new ArrayList<>()).remove(infoWorker.getWorkerId()); // Evitar
                                                                                                                    // duplicados
                                                                                                                    // si
                                                                                                                    // se
                                                                                                                    // re-registra
-            particionANodos.computeIfAbsent(particionId, _ -> new ArrayList<>()).add(infoWorker.getWorkerId());
+            particionANodos.computeIfAbsent(particionId, a -> new ArrayList<>()).add(infoWorker.getWorkerId());
             System.out.println("ServidorCentral: Worker " + infoWorker.getWorkerId() + " ahora maneja partición "
                     + particionId);
         }
