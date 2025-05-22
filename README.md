@@ -84,3 +84,59 @@
    - **Principios de Diseño:** (Intentando adherirse a KISS, DRY, SRP).
    - **Archivos .txt como BD:** (Implementado).
    - **Loggeo:** `System.out.println` (Implementado).
+
+### Ejecución del Sistema
+
+Para ejecutar el sistema distribuido de banca, siga estos pasos:
+
+1. Ejecución del Servidor Central:
+   - Abra una terminal y diríjase al directorio `centralserver`:
+     ```bash
+     cd centralserver
+     ```
+   - Compile el código (si aún no lo ha compilado):
+     ```bash
+     javac ServidorCentral.java
+     ```
+   - Ejecute el servidor:
+     ```bash
+     java ServidorCentral
+     ```
+
+2. Ejecución del Nodo Trabajador:
+   - Abra otra terminal y diríjase al directorio `workernode`:
+     ```bash
+     cd workernode
+     ```
+   - Compile el código:
+     ```bash
+     javac NodoTrabajador.java
+     ```
+   - Ejecute un nodo trabajador especificando sus parámetros:
+     ```bash
+     java NodoTrabajador <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
+     ```
+     Ejemplo:
+     ```bash
+     java NodoTrabajador worker1 localhost 12346 12350
+     ```
+
+3. Ejecución del Cliente:
+   - Abra otra terminal y diríjase al directorio `client`:
+     ```bash
+     cd client
+     ```
+   - Compile el código:
+     ```bash
+     javac Cliente.java
+     ```
+   - Ejecute el cliente con las siguientes opciones:
+     - Para modo simulación (por defecto):
+       ```bash
+       java Cliente -h localhost -p 12345 -c 5 -o 10
+       ```
+       (donde `-c` indica el número de clientes simulados y `-o` el número de operaciones por cliente).
+     - Para modo interactivo:
+       ```bash
+       java Cliente -i
+       ```
