@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import commons.InfoWorker; // Importar InfoWorker
 import commons.Cliente;
 import commons.Cuenta;
-import commons.Transaccion;
 import commons.EstadoOperacion;
 
 //package centralserver; // Eliminado para simplificar estructura por ahora

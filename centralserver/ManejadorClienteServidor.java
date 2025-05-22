@@ -17,7 +17,6 @@ import commons.Solicitud; // Importar Solicitud
 import commons.Respuesta; // Importar Respuesta
 import commons.EstadoOperacion; // Importar EstadoOperacion
 import commons.TipoOperacion;
-import commons.MensajeWorker; // Necesario si el servidor se comunica con worker usando esta clase
 import commons.InfoWorker; // Importar InfoWorker
 
 // package centralserver; // Eliminado para simplificar

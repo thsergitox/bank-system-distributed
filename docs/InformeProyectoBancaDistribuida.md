@@ -91,15 +91,6 @@ Las siguientes clases representan las entidades principales del sistema. Todas i
     *   `saldo` (double): Saldo actual de la cuenta.
     *   `tipoCuenta` (String): Tipo de cuenta (ej., "AHORRO", "CORRIENTE").
 
-*   **`Transaccion.java`:**
-    *   `idTransaccion` (String): Identificador único de la transacción.
-    *   `idCuentaOrigen` (String): ID de la cuenta origen (si aplica).
-    *   `idCuentaDestino` (String): ID de la cuenta destino (si aplica).
-    *   `monto` (double): Monto de la transacción.
-    *   `fechaHora` (LocalDateTime): Fecha y hora de la transacción.
-    *   `tipoOperacion` (TipoOperacion): El tipo de operación realizada.
-    *   `estado` (EstadoOperacion): Estado final de la transacción.
-    *   `mensaje` (String): Mensaje adicional sobre la transacción.
 
 ## 4. Comunicación (`commons`)
 
