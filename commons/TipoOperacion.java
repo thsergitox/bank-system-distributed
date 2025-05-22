@@ -18,8 +18,6 @@ public enum TipoOperacion {
     // Podríamos añadir más tipos de operaciones en el futuro si es necesario
     // Por ejemplo: CREAR_CUENTA, ACTUALIZAR_CLIENTE, ARQUEO_TOTAL
 
-    // ARQUEO_CUENTAS, // Cliente -> Servidor: Solicita el arqueo total de todas las
-    // cuentas
-    // CALCULAR_SALDO_PARTICION // Servidor -> Worker: Solicita la suma de saldos de
-    // una partición específica
+    ARQUEO_CUENTAS, // Cliente -> Servidor: Solicita el arqueo total de todas las cuentas
+    CALCULAR_SALDO_PARTICION // Servidor -> Worker: Solicita la suma de saldos de una partición específica
 }
