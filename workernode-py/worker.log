@@ -1,0 +1,8 @@
+2025-05-22 14:49:23,937 - INFO - Worker [worker_py1]: Inicializado con directorio data_worker_py1
+2025-05-22 14:49:23,938 - INFO - Worker [worker_py1]: Conectado a servidor central localhost:12346
+2025-05-22 14:49:23,939 - INFO - Worker [worker_py1]: Mensaje de REGISTRO enviado
+2025-05-22 14:49:23,939 - INFO - Worker [worker_py1]: Esperando respuesta del servidor...
+2025-05-22 14:49:23,943 - INFO - Worker [worker_py1]: Leyendo mensaje de longitud 66
+2025-05-22 14:49:23,943 - INFO - Worker [worker_py1]: Mensaje recibido: {'tipo': 'ERROR', 'mensajeTexto': 'No hay particiones para asignar.'}
+2025-05-22 14:49:23,943 - ERROR - Worker [worker_py1]: Respuesta inesperada del servidor
+2025-05-22 14:49:23,943 - ERROR - Worker [worker_py1]: Fallo en registro. Abortando.

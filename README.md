@@ -4,7 +4,8 @@
    - [x] Crear estructura de carpetas:
      - [x] `commons`
      - [x] `central-server`
-     - [x] `worker-node`
+     - [x] `worker-node` (Java)
+     - [x] `workernode-py` (Python) - **NUEVO: Implementación alternativa**
      - [x] `client`
      - [x] `data` (para los CSV iniciales)
    - [x] Configurar archivos de build (Postergado, se usará compilación directa por ahora).
@@ -107,10 +108,10 @@ cd bin
   java centralserver.ServidorCentral
 ```
 
-
 3. Ejecución del Nodo Trabajador:
 
-   - Ejecute un nodo trabajador especificando sus parámetros:
+   **Opción A: Worker Java**
+   - Ejecute un nodo trabajador Java especificando sus parámetros:
      ```bash
      java workernode.NodoTrabajador <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
      ```
@@ -118,6 +119,19 @@ cd bin
      ```bash
      java workernode.NodoTrabajador worker1 localhost 12346 12350
      ```
+
+   **Opción B: Worker Python**
+   - Ejecute un nodo trabajador Python (requiere Python 3.7+):
+     ```bash
+     cd workernode-py
+     python nodo_trabajador.py <workerId> <hostServidorCentral> <puertoServidorCentral> <puertoEscuchaTareas>
+     ```
+     Ejemplo:
+     ```bash
+     python nodo_trabajador.py worker_py1 localhost 12346 12351
+     ```
+
+   **Nota**: Puede ejecutar múltiples workers (Java y/o Python) simultáneamente usando puertos diferentes.
 
 4. Ejecución del Cliente:
 
