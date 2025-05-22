@@ -142,7 +142,7 @@ Y si tienes la versión 21 o más de Java puede hacer esto:
      ```
    - Ejecutamos directamente el código:
      ```bash
-     javac ServidorCentral.java
+     java ServidorCentral.java
      ```
 
 2. Ejecute un nodo trabajador:
